@@ -3,7 +3,7 @@
 import {getUserByEmail} from '@/data/user';
 import prisma from '@/prisma/client';
 import {RegisterSchema} from '@/schemas';
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 import {z} from 'zod';
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
@@ -12,7 +12,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 	if (!success) return {error: 'Invalid fields'};
 
 	const {email, password, name} = data;
-	const hashedPassword = await bcrypt.hash(password, 10);
+	const hashedPassword = await bcryptjs.hash(password, 10);
 
 	const existingUser = await getUserByEmail(email);
 	if (existingUser) return {error: 'Email already in use!'};
