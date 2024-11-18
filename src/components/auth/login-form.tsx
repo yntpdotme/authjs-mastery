@@ -3,7 +3,7 @@
 import {login} from '@/actions/login';
 import {CardWrapper} from '@/components/auth/card-wrapper';
 import {FormError} from '@/components/form-error';
-import {FormSuccess} from '@/components/form-sucess';
+import {FormSuccess} from '@/components/form-success';
 import {Button} from '@/components/ui/button';
 import {
 	Form,
@@ -47,9 +47,7 @@ export const LoginForm = () => {
 		startTransition(async () => {
 			const res = await login(values);
 			setError(res?.error);
-
-			// TODO: Add when we add 2 FA
-			// setSuccess(res.success);
+			setSuccess(res?.success);
 		});
 	};
 
