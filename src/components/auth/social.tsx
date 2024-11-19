@@ -25,7 +25,7 @@ export const Social = () => {
 				variant="outline"
 				onClick={() => onClick('google')}
 			>
-				<FcGoogle className="size-5" />
+				<FcGoogle className="scale-125" />
 			</Button>
 
 			<Button
@@ -34,7 +34,7 @@ export const Social = () => {
 				variant="outline"
 				onClick={() => onClick('github')}
 			>
-				<FaGithub className="size-5" />
+				<FaGithub className="scale-125" />
 			</Button>
 		</div>
 	);
