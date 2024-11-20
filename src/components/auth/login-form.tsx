@@ -32,12 +32,14 @@ export const LoginForm = () => {
 	const [isPending, startTransition] = useTransition();
 	const [error, setError] = useState<string | undefined>();
 	const [success, setSuccess] = useState<string | undefined>();
+	const [showTwoFactor, setShowTwoFactor] = useState(false);
 
 	const form = useForm<z.infer<typeof LoginSchema>>({
 		resolver: zodResolver(LoginSchema),
 		defaultValues: {
 			email: '',
 			password: '',
+			code: '',
 		},
 	});
 
@@ -47,8 +49,17 @@ export const LoginForm = () => {
 
 		startTransition(async () => {
 			const res = await login(values);
-			setError(res?.error);
-			setSuccess(res?.success);
+			if (res?.error) {
+				form.reset();
+				setError(res.error);
+			}
+			if (res?.success) {
+				form.reset();
+				setSuccess(res?.success);
+			}
+			if (res?.twoFactor) {
+				setShowTwoFactor(true);
+			}
 		});
 	};
 
@@ -62,52 +73,75 @@ export const LoginForm = () => {
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
 					<div className="space-y-4">
-						<FormField
-							control={form.control}
-							name="email"
-							render={({field}) => (
-								<FormItem>
-									<FormLabel>Email</FormLabel>
-									<FormControl>
-										<Input
-											{...field}
-											placeholder="john.doe@example.com"
-											type="email"
-											disabled={isPending}
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="password"
-							render={({field}) => (
-								<FormItem>
-									<FormLabel>Password</FormLabel>
-									<FormControl>
-										<Input
-											{...field}
-											placeholder="******"
-											type="password"
-											disabled={isPending}
-										/>
-									</FormControl>
+						{showTwoFactor && (
+							<FormField
+								control={form.control}
+								name="code"
+								render={({field}) => (
+									<FormItem>
+										<FormLabel>Two Factor Code</FormLabel>
+										<FormControl>
+											<Input
+												{...field}
+												placeholder="123456"
+												disabled={isPending}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						)}
+						{!showTwoFactor && (
+							<>
+								<FormField
+									control={form.control}
+									name="email"
+									render={({field}) => (
+										<FormItem>
+											<FormLabel>Email</FormLabel>
+											<FormControl>
+												<Input
+													{...field}
+													placeholder="john.doe@example.com"
+													type="email"
+													disabled={isPending}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={form.control}
+									name="password"
+									render={({field}) => (
+										<FormItem>
+											<FormLabel>Password</FormLabel>
+											<FormControl>
+												<Input
+													{...field}
+													placeholder="******"
+													type="password"
+													disabled={isPending}
+												/>
+											</FormControl>
 
-									<Button
-										size="sm"
-										variant="link"
-										className="px-0 font-normal"
-										asChild
-									>
-										<Link href="/auth/reset">Forgot password?</Link>
-									</Button>
+											<Button
+												size="sm"
+												variant="link"
+												className="px-0 font-normal"
+												asChild
+											>
+												<Link href="/auth/reset">Forgot password?</Link>
+											</Button>
 
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</>
+						)}
 					</div>
 
 					<FormError message={error || urlError} />
@@ -115,7 +149,7 @@ export const LoginForm = () => {
 					<FormSuccess message={success} />
 
 					<Button type="submit" className="w-full" disabled={isPending}>
-						Login
+						{showTwoFactor ? 'Confirm' : 'Login'}
 					</Button>
 				</form>
 			</Form>
