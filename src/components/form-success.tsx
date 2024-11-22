@@ -1,4 +1,4 @@
-import {ExclamationTriangleIcon} from '@radix-ui/react-icons';
+import {CheckCircledIcon} from '@radix-ui/react-icons';
 
 type FormSuccessProps = {
 	message?: string;
@@ -9,7 +9,7 @@ export const FormSuccess = ({message}: FormSuccessProps) => {
 
 	return (
 		<div className="bg-emerald-500/15 p-3 rounded-md flex items-center gap-x-2 text-sm text-emerald-500">
-			<ExclamationTriangleIcon className="size-4" />
+			<CheckCircledIcon className="size-4" />
 			<p>{message}</p>
 		</div>
 	);
