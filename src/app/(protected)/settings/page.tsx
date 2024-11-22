@@ -1,5 +1,13 @@
+'use client';
+
+import {useCurrentUser} from '@/hooks/useCurrentUser';
+
 const SettingsPage = () => {
-	return <div>SettingsPage</div>;
+	const user = useCurrentUser();
+
+	return <div className='bg-white p-10 rounded-xl'>
+		
+	</div>;
 };
 
 export default SettingsPage;
