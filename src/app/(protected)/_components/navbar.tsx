@@ -18,7 +18,7 @@ export const Navbar = () => {
 	console.log(pathname);
 
 	return (
-		<div className="bg-secondary flex justify-between items-center p-4 rounded-xl sm:w-[610px] w-[90%] shadow-sm">
+		<div className="bg-secondary flex justify-between items-center p-4 rounded-xl sm:w-[610px] w-[90%] shadow-sm mt-4">
 			<NavigationMenu className="sm:hidden">
 				<NavigationMenuList>
 					<NavigationMenuItem>
