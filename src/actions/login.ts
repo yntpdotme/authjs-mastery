@@ -14,7 +14,7 @@ import {z} from 'zod';
 
 export const login = async (
 	values: z.infer<typeof LoginSchema>,
-	callbackUrl?: string
+	callbackUrl?: string | null,
 ) => {
 	const {success, data} = LoginSchema.safeParse(values);
 

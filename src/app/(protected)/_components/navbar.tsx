@@ -15,7 +15,6 @@ import {
 
 export const Navbar = () => {
 	const pathname = usePathname();
-	console.log(pathname);
 
 	return (
 		<div className="bg-secondary flex justify-between items-center p-4 rounded-xl sm:w-[610px] w-[90%] shadow-sm mt-4">

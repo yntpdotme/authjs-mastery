@@ -1,4 +1,5 @@
 'use client';
+
 import {settings} from '@/actions/settings';
 import {FormError} from '@/components/form-error';
 import {FormSuccess} from '@/components/form-success';
