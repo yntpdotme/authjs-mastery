@@ -4,6 +4,7 @@ import {BackButton} from '@/components/auth/back-button';
 import {Header} from '@/components/auth/header';
 import {Social} from '@/components/auth/social';
 import {Card, CardContent, CardFooter, CardHeader} from '@/components/ui/card';
+import {GuestLogin} from './guest-login';
 
 type CardWrapperProps = {
 	children: React.ReactNode;
@@ -11,6 +12,7 @@ type CardWrapperProps = {
 	backButtonLabel: string;
 	backButtonHref: string;
 	showSocial?: boolean;
+	showGuestLogin?: boolean;
 };
 
 export const CardWrapper = ({
@@ -19,6 +21,7 @@ export const CardWrapper = ({
 	backButtonLabel,
 	backButtonHref,
 	showSocial,
+	showGuestLogin,
 }: CardWrapperProps) => {
 	return (
 		<Card className="w-[400px] shadow-md">
@@ -32,7 +35,10 @@ export const CardWrapper = ({
 				</CardFooter>
 			)}
 			<CardFooter>
-				<BackButton label={backButtonLabel} href={backButtonHref} />
+				<div className="w-full space-y-4">
+					{showGuestLogin && <GuestLogin />}
+					<BackButton label={backButtonLabel} href={backButtonHref} />
+				</div>
 			</CardFooter>
 		</Card>
 	);

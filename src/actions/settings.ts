@@ -6,6 +6,7 @@ import {sendVerificationEmail} from '@/lib/mail';
 import {generateVerificationToken} from '@/lib/tokens';
 import prisma from '@/prisma/client';
 import {SettingsSchema} from '@/schemas';
+import {UserRole} from '@prisma/client';
 import bcryptjs from 'bcryptjs';
 import {z} from 'zod';
 
@@ -15,6 +16,8 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
 
 	const dbUser = await getUserByID(user.id!);
 	if (!dbUser) return {error: 'Unauthorized'};
+	if (dbUser.role === UserRole.GUEST)
+		return {error: 'For security reasons, guest accounts cannot be modified.'};
 
 	if (user.isOAuth) {
 		values.email = undefined;

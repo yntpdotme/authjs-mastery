@@ -40,6 +40,8 @@ const SettingsPage = () => {
 	const [error, setError] = useState<string | undefined>();
 	const [success, setSuccess] = useState<string | undefined>();
 
+	const isGuest = user?.role === UserRole.GUEST;
+
 	const form = useForm<z.infer<typeof SettingsSchema>>({
 		resolver: zodResolver(SettingsSchema),
 		defaultValues: {
@@ -157,21 +159,27 @@ const SettingsPage = () => {
 								render={({field}) => (
 									<FormItem>
 										<FormLabel>Role</FormLabel>
-										<Select
-											disabled={isPending}
-											onValueChange={field.onChange}
-											defaultValue={field.value}
-										>
-											<FormControl>
-												<SelectTrigger>
-													<SelectValue placeholder="Select a role" />
-												</SelectTrigger>
-											</FormControl>
-											<SelectContent>
-												<SelectItem value={UserRole.ADMIN}>Admin</SelectItem>
-												<SelectItem value={UserRole.USER}>User</SelectItem>
-											</SelectContent>
-										</Select>
+										{isGuest ? (
+											<div className="py-2 px-3 border rounded-md text-sm">
+												Guest
+											</div>
+										) : (
+											<Select
+												disabled={isPending}
+												onValueChange={field.onChange}
+												defaultValue={field.value}
+											>
+												<FormControl>
+													<SelectTrigger>
+														<SelectValue placeholder="Select a role" />
+													</SelectTrigger>
+												</FormControl>
+												<SelectContent>
+													<SelectItem value={UserRole.ADMIN}>Admin</SelectItem>
+													<SelectItem value={UserRole.USER}>User</SelectItem>
+												</SelectContent>
+											</Select>
+										)}
 										<FormMessage />
 									</FormItem>
 								)}
