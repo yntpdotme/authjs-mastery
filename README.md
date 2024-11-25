@@ -168,6 +168,13 @@ Welcome Auth.js Mastery, your ultimate guide to implementing robust authenticati
 
 <br>
 
+## 🤝&nbsp;&nbsp;Contributing
+
+Contributions are always welcome!
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for ways to get started.
+
+</br>
+
 ## 🪪&nbsp;&nbsp; License
 
 Auth.js Mastery is open-source under the [MIT License](./LICENSE). 
