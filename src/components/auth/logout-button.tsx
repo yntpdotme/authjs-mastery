@@ -8,7 +8,7 @@ type LogoutButtonProps = {
 
 export const LogoutButton = ({children}: LogoutButtonProps) => {
 	const onClick = () => {
-		signOut();
+		signOut({callbackUrl: '/auth/login'});
 	};
 
 	return (
