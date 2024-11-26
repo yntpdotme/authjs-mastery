@@ -1,4 +1,5 @@
 import {auth} from '@/auth';
+import SourceCode from '@/components/source-code';
 import {Toaster} from '@/components/ui/sonner';
 import type {Metadata} from 'next';
 import {SessionProvider} from 'next-auth/react';
@@ -30,6 +31,7 @@ export default async function RootLayout({
 					className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 				>
 					<Toaster />
+					<SourceCode link="https://github.com/yntpdotme/authjs-mastery?tab=readme-ov-file#authjs-mastery" />
 					{children}
 				</body>
 			</html>
