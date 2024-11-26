@@ -2,6 +2,7 @@
 
 import {newPassword} from '@/actions/new-password';
 import {CardWrapper} from '@/components/auth/card-wrapper';
+import PasswordInput from '@/components/auth/password-input';
 import {FormError} from '@/components/form-error';
 import {FormSuccess} from '@/components/form-success';
 import {Button} from '@/components/ui/button';
@@ -13,7 +14,6 @@ import {
 	FormLabel,
 	FormMessage,
 } from '@/components/ui/form';
-import {Input} from '@/components/ui/input';
 import {NewPasswordSchema} from '@/schemas';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useSearchParams} from 'next/navigation';
@@ -63,12 +63,7 @@ export const NewPasswordForm = () => {
 								<FormItem>
 									<FormLabel>Password</FormLabel>
 									<FormControl>
-										<Input
-											{...field}
-											placeholder="******"
-											type="password"
-											disabled={isPending}
-										/>
+										<PasswordInput field={field} disabled={isPending} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>

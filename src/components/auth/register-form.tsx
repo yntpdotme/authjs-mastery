@@ -2,6 +2,7 @@
 
 import {register} from '@/actions/register';
 import {CardWrapper} from '@/components/auth/card-wrapper';
+import PasswordInput from '@/components/auth/password-input';
 import {FormError} from '@/components/form-error';
 import {FormSuccess} from '@/components/form-success';
 import {Button} from '@/components/ui/button';
@@ -97,12 +98,7 @@ export const RegisterForm = () => {
 								<FormItem>
 									<FormLabel>Password</FormLabel>
 									<FormControl>
-										<Input
-											{...field}
-											placeholder="******"
-											type="password"
-											disabled={isPending}
-										/>
+										<PasswordInput field={field} disabled={isPending} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>

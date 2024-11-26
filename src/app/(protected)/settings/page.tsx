@@ -1,6 +1,7 @@
 'use client';
 
 import {settings} from '@/actions/settings';
+import PasswordInput from '@/components/auth/password-input';
 import {FormError} from '@/components/form-error';
 import {FormSuccess} from '@/components/form-success';
 import {Button} from '@/components/ui/button';
@@ -122,12 +123,7 @@ const SettingsPage = () => {
 											<FormItem>
 												<FormLabel>Password</FormLabel>
 												<FormControl>
-													<Input
-														{...field}
-														placeholder="******"
-														type="password"
-														disabled={isPending}
-													/>
+													<PasswordInput field={field} disabled={isPending} />
 												</FormControl>
 												<FormMessage />
 											</FormItem>
@@ -140,12 +136,7 @@ const SettingsPage = () => {
 											<FormItem>
 												<FormLabel>New Password</FormLabel>
 												<FormControl>
-													<Input
-														{...field}
-														placeholder="******"
-														type="password"
-														disabled={isPending}
-													/>
+													<PasswordInput field={field} disabled={isPending} />
 												</FormControl>
 												<FormMessage />
 											</FormItem>
