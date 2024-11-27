@@ -3,17 +3,17 @@
 import {signOut} from 'next-auth/react';
 
 type LogoutButtonProps = {
-	children?: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 export const LogoutButton = ({children}: LogoutButtonProps) => {
-	const onClick = () => {
-		signOut({callbackUrl: '/auth/login'});
-	};
+  const onClick = () => {
+    signOut({callbackUrl: '/auth/login'});
+  };
 
-	return (
-		<span onClick={onClick} className="cursor-pointer">
-			{children}
-		</span>
-	);
+  return (
+    <span onClick={onClick} className="cursor-pointer">
+      {children}
+    </span>
+  );
 };

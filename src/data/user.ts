@@ -1,21 +1,21 @@
 import prisma from '@/prisma/client';
 
 export const getUserByEmail = async (email: string) => {
-	try {
-		const user = await prisma.user.findUnique({where: {email}});
+  try {
+    const user = await prisma.user.findUnique({where: {email}});
 
-		return user;
-	} catch (error) {
-		return null;
-	}
+    return user;
+  } catch (error) {
+    return null;
+  }
 };
 
 export const getUserByID = async (id: string) => {
-	try {
-		const user = await prisma.user.findUnique({where: {id}});
+  try {
+    const user = await prisma.user.findUnique({where: {id}});
 
-		return user;
-	} catch (error) {
-		return null;
-	}
+    return user;
+  } catch (error) {
+    return null;
+  }
 };

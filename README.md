@@ -177,5 +177,5 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for ways to get started.
 
 ## 🪪&nbsp;&nbsp; License
 
-Auth.js Mastery is open-source under the [MIT License](./LICENSE). 
+Auth.js Mastery is open-source under the [MIT License](./LICENSE).
 Feel free to learn, add upon, and share!

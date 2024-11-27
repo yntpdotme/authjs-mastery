@@ -9,42 +9,42 @@ import {useCallback, useEffect, useState} from 'react';
 import {BeatLoader} from 'react-spinners';
 
 export const NewVerificationForm = () => {
-	const [error, setError] = useState<string | undefined>();
-	const [success, setSuccess] = useState<string | undefined>();
+  const [error, setError] = useState<string | undefined>();
+  const [success, setSuccess] = useState<string | undefined>();
 
-	const searchParams = useSearchParams();
-	const token = searchParams.get('token');
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token');
 
-	const onSubmit = useCallback(async () => {
-		if (!token) {
-			setError('Missing token!');
-			return;
-		}
+  const onSubmit = useCallback(async () => {
+    if (!token) {
+      setError('Missing token!');
+      return;
+    }
 
-		try {
-			const data = await newVerification(token);
-			setSuccess(data.success);
-			setError(data.error);
-		} catch (error) {
-			setError('Something went wrong!');
-		}
-	}, [token]);
+    try {
+      const data = await newVerification(token);
+      setSuccess(data.success);
+      setError(data.error);
+    } catch (error) {
+      setError('Something went wrong!');
+    }
+  }, [token]);
 
-	useEffect(() => {
-		onSubmit();
-	}, [onSubmit]);
+  useEffect(() => {
+    onSubmit();
+  }, [onSubmit]);
 
-	return (
-		<CardWrapper
-			headerLabel="Confirming your verification"
-			backButtonLabel="Back to login"
-			backButtonHref="/auth/login"
-		>
-			<div className="flex items-center w-full justify-center">
-				{!success && !error && <BeatLoader speedMultiplier={0.5} />}
-				<FormSuccess message={success} />
-				<FormError message={error} />
-			</div>
-		</CardWrapper>
-	);
+  return (
+    <CardWrapper
+      headerLabel="Confirming your verification"
+      backButtonLabel="Back to login"
+      backButtonHref="/auth/login"
+    >
+      <div className="flex w-full items-center justify-center">
+        {!success && !error && <BeatLoader speedMultiplier={0.5} />}
+        <FormSuccess message={success} />
+        <FormError message={error} />
+      </div>
+    </CardWrapper>
+  );
 };

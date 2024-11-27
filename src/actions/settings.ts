@@ -11,55 +11,55 @@ import bcryptjs from 'bcryptjs';
 import {z} from 'zod';
 
 export const settings = async (values: z.infer<typeof SettingsSchema>) => {
-	const user = await currentUser();
-	if (!user) return {error: 'Unauthorized'};
+  const user = await currentUser();
+  if (!user) return {error: 'Unauthorized'};
 
-	const dbUser = await getUserByID(user.id!);
-	if (!dbUser) return {error: 'Unauthorized'};
-	if (dbUser.role === UserRole.GUEST)
-		return {error: 'For security reasons, guest accounts cannot be modified.'};
+  const dbUser = await getUserByID(user.id!);
+  if (!dbUser) return {error: 'Unauthorized'};
+  if (dbUser.role === UserRole.GUEST)
+    return {error: 'For security reasons, guest accounts cannot be modified.'};
 
-	if (user.isOAuth) {
-		values.email = undefined;
-		values.password = undefined;
-		values.newPassword = undefined;
-		values.isTwoFactorEnabled = undefined;
-	}
+  if (user.isOAuth) {
+    values.email = undefined;
+    values.password = undefined;
+    values.newPassword = undefined;
+    values.isTwoFactorEnabled = undefined;
+  }
 
-	if (values.email && values.email !== user.email) {
-		const existingUser = await getUserByEmail(values.email);
+  if (values.email && values.email !== user.email) {
+    const existingUser = await getUserByEmail(values.email);
 
-		if (existingUser && existingUser.id !== user.id)
-			return {error: 'Email already in use!'};
+    if (existingUser && existingUser.id !== user.id)
+      return {error: 'Email already in use!'};
 
-		const verificationToken = await generateVerificationToken(values.email);
-		await sendVerificationEmail(
-			verificationToken.email,
-			verificationToken.token
-		);
+    const verificationToken = await generateVerificationToken(values.email);
+    await sendVerificationEmail(
+      verificationToken.email,
+      verificationToken.token,
+    );
 
-		return {success: 'Verification email sent!'};
-	}
+    return {success: 'Verification email sent!'};
+  }
 
-	if (values.password && values.newPassword && dbUser.password) {
-		const passwordsMatch = await bcryptjs.compare(
-			values.password,
-			dbUser.password
-		);
+  if (values.password && values.newPassword && dbUser.password) {
+    const passwordsMatch = await bcryptjs.compare(
+      values.password,
+      dbUser.password,
+    );
 
-		if (!passwordsMatch) return {error: 'Incorrect password!'};
+    if (!passwordsMatch) return {error: 'Incorrect password!'};
 
-		const hashedPassword = await bcryptjs.hash(values.newPassword, 10);
-		values.password = hashedPassword;
-		values.newPassword = undefined;
-	}
+    const hashedPassword = await bcryptjs.hash(values.newPassword, 10);
+    values.password = hashedPassword;
+    values.newPassword = undefined;
+  }
 
-	await prisma.user.update({
-		where: {id: dbUser.id},
-		data: {
-			...values,
-		},
-	});
+  await prisma.user.update({
+    where: {id: dbUser.id},
+    data: {
+      ...values,
+    },
+  });
 
-	return {success: 'Settings Updated!'};
+  return {success: 'Settings Updated!'};
 };
