@@ -17,7 +17,7 @@ import {
 import {NewPasswordSchema} from '@/schemas';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useSearchParams} from 'next/navigation';
-import {useState, useTransition} from 'react';
+import {useEffect, useState, useTransition} from 'react';
 import {useForm} from 'react-hook-form';
 import {z} from 'zod';
 
@@ -35,6 +35,10 @@ export const NewPasswordForm = () => {
       password: '',
     },
   });
+
+  useEffect(() => {
+    form.setFocus('password');
+  }, [form.setFocus]);
 
   const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
     setError('');

@@ -19,7 +19,7 @@ import {LoginSchema} from '@/schemas';
 import {zodResolver} from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import {useSearchParams} from 'next/navigation';
-import {useState, useTransition} from 'react';
+import {useEffect, useState, useTransition} from 'react';
 import {useForm} from 'react-hook-form';
 import {z} from 'zod';
 
@@ -44,6 +44,10 @@ export const LoginForm = () => {
       code: '',
     },
   });
+
+  useEffect(() => {
+    form.setFocus('email');
+  }, [form.setFocus]);
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     setError('');

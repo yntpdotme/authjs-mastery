@@ -17,7 +17,7 @@ import {
 import {Input} from '@/components/ui/input';
 import {RegisterSchema} from '@/schemas';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {useState, useTransition} from 'react';
+import {useEffect, useState, useTransition} from 'react';
 import {useForm} from 'react-hook-form';
 import {z} from 'zod';
 
@@ -34,6 +34,10 @@ export const RegisterForm = () => {
       password: '',
     },
   });
+
+  useEffect(() => {
+    form.setFocus('name');
+  }, [form.setFocus]);
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     setError('');

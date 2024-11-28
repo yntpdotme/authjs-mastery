@@ -16,7 +16,7 @@ import {
 import {Input} from '@/components/ui/input';
 import {ResetSchema} from '@/schemas';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {useState, useTransition} from 'react';
+import {useEffect, useState, useTransition} from 'react';
 import {useForm} from 'react-hook-form';
 import {z} from 'zod';
 
@@ -31,6 +31,10 @@ export const ResetForm = () => {
       email: '',
     },
   });
+
+  useEffect(() => {
+    form.setFocus('email');
+  }, [form.setFocus]);
 
   const onSubmit = (values: z.infer<typeof ResetSchema>) => {
     setError('');
