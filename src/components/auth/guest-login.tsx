@@ -1,48 +1,10 @@
 'use client';
 
-import {Button} from '@/components/ui/button';
-import {DEFAULT_LOGIN_REDIRECT} from '@/routes';
-import {signIn} from 'next-auth/react';
-import {useSearchParams} from 'next/navigation';
-import {FaGithub} from 'react-icons/fa';
-import {FcGoogle} from 'react-icons/fc';
-
-export const Social = () => {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl');
-
-  const onClick = (provider: 'google' | 'github') => {
-    signIn(provider, {
-      callbackUrl: callbackUrl || DEFAULT_LOGIN_REDIRECT,
-    });
-  };
-
-  return (
-    <div className="flex w-full items-center gap-x-2">
-      <Button
-        size="lg"
-        className="w-full"
-        variant="outline"
-        onClick={() => onClick('google')}
-      >
-        <FcGoogle className="size-5" />
-      </Button>
-
-      <Button
-        size="lg"
-        className="w-full"
-        variant="outline"
-        onClick={() => onClick('github')}
-      >
-        <FaGithub className="size-5" />
-      </Button>
-    </div>
-  );
-};
-
 import {guestLogin} from '@/actions/guest-login';
 import {FormError} from '@/components/form-error';
 import {FormSuccess} from '@/components/form-success';
+import {Button} from '@/components/ui/button';
+import {useSearchParams} from 'next/navigation';
 import {useState, useTransition} from 'react';
 
 export const GuestLogin = () => {
